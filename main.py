@@ -2,7 +2,12 @@ import network
 import ntptime
 import time
 from Servo import Servo
+import ujson
 
+
+fp = open('secrets.json')
+secretsString = fp.read()
+secrets = ujson.loads(secretsString)
 
 def dstTime():
     year = time.localtime()[0] #get current year
@@ -24,7 +29,7 @@ s = network.WLAN(network.STA_IF)
 s.active(True)
 s.disconnect()
 print("Scanned: ", s.scan())
-s.connect("MOYNES", "") # Connect to an AP
+s.connect(secrets['wifi']['ssid'], secrets['wifi']['password']) # Connect to an AP
 print("Connected: ", s.isconnected())
 
 while not s.isconnected():
@@ -48,8 +53,23 @@ while True:
     minutes=totalMinutes % 10
     tensMinutes= (totalMinutes - minutes)/10
 
-    hours=totalHours % 10
-    tensHours=(totalHours - hours)/10
+    if totalHours == 0 or totalHours == 12:
+        tensHours = 1
+        hours = 2
+    elif totalHours < 12:
+        tensHours = totalHours // 10
+        hours = totalHours % 10
+    else:
+        tensHours = 0
+        hours = totalHours - 12 
+
+    print(f"hours: {hours}, totalHours: {totalHours}, tensHours: {tensHours}")
+    
+    
+    
+    if tensHours == 0 and hours == 0:
+        tensHours = 1
+        hours = 2
 
     print ("tensHours: ", tensHours, "hours: ",hours," TensMinutes: ", tensMinutes," Minutes: ",minutes)
 

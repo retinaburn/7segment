@@ -47,6 +47,7 @@ tensHoursMotor = Servo(pin=15)
 
 ticksPerNumber = 20
 while True:
+    myDstTime = dstTime()
     totalMinutes=myDstTime[4]
     totalHours=myDstTime[3]
 
@@ -63,14 +64,8 @@ while True:
         tensHours = 0
         hours = totalHours - 12 
 
-    print(f"hours: {hours}, totalHours: {totalHours}, tensHours: {tensHours}")
+    #print(f"hours: {hours}, totalHours: {totalHours}, tensHours: {tensHours}")
     
-    
-    
-    if tensHours == 0 and hours == 0:
-        tensHours = 1
-        hours = 2
-
     print ("tensHours: ", tensHours, "hours: ",hours," TensMinutes: ", tensMinutes," Minutes: ",minutes)
 
     minutesAdjustment = 0

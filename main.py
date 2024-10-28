@@ -13,7 +13,7 @@ def dstTime():
     year = time.localtime()[0] #get current year
     # print(year)
     HHMarch = time.mktime((year,3 ,(14-(int(5*year/4+1))%7),1,0,0,0,0,0)) #Time of March change to DST
-    HHNovember = time.mktime((year,10,(7-(int(5*year/4+1))%7),1,0,0,0,0,0)) #Time of November change to EST
+    HHNovember = time.mktime((year,11,(7-(int(5*year/4+1))%7),2,0,0,0,0,0)) #Time of November change to EST
     # print(HHNovember)
     now=time.time()
     if now < HHMarch : # we are before last sunday of march
@@ -38,6 +38,7 @@ while not s.isconnected():
     
 if s.isconnected():
     ntptime.settime()
+
 print(time.localtime()," vs ",dstTime())
 myDstTime = dstTime()
 minutesMotor = Servo(pin=25)
@@ -82,6 +83,5 @@ while True:
 
     tensHoursAdjustment = 0
     tensHoursMotor.move(tensHours * ticksPerNumber + tensHoursAdjustment)
-
 
     time.sleep(1)

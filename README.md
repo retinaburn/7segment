@@ -8,3 +8,6 @@ screen -ls
 
 screen -X -S 83405 quit
 
+screen /dev/cu.usbserial-02528237 115200
+
+rshell --port /dev/cu.usbserial-02528237

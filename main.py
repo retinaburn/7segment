@@ -54,7 +54,8 @@ while True:
 
     minutes=totalMinutes % 10
     tensMinutes= (totalMinutes - minutes)/10
-
+    
+    #print("dstTime: ",myDstTime," totalMinutes: ",totalMinutes," totalHours: ",totalHours)
     if totalHours == 0 or totalHours == 12:
         tensHours = 1
         hours = 2
@@ -62,8 +63,8 @@ while True:
         tensHours = totalHours // 10
         hours = totalHours % 10
     else:
-        tensHours = 0
-        hours = totalHours - 12 
+        tensHours = (totalHours - 12) // 10
+        hours = (totalHours - 12) % 10 
 
     #print(f"hours: {hours}, totalHours: {totalHours}, tensHours: {tensHours}")
     
